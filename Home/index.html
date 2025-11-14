@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSRPWL - Florida State Roleplay Whitelisted</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Black & White Theme */
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-50: #FAFAFA;
+            --gray-100: #F5F5F5;
+            --gray-200: #EEEEEE;
+            --gray-300: #E0E0E0;
+            --gray-400: #BDBDBD;
+            --gray-500: #9E9E9E;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            --transition: all 0.3s ease;
+            --transition-slow: all 0.6s ease;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05);
+            --radius: 6px;
+            --radius-lg: 10px;
+            
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--gray-900);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul, ol {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background-color: var(--gray-900);
+            color: var(--white);
+            border: 2px solid var(--gray-900);
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background-color: var(--white);
+            color: var(--gray-900);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--gray-900);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--gray-900);
+            color: var(--white);
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--gray-200);
+            color: var(--gray-800);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            color: var(--gray-900);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .logo img {
+            height: 50px;
+            transition: var(--transition);
+            filter: grayscale(100%) contrast(200%);
+        }
+
+        /* Navigation */
+        .nav-menu ul {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--gray-700);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gray-900);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover:after,
+        .nav-link.active:after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            margin-left: 1rem;
+        }
+
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            width: 30px;
+            height: 30px;
+            justify-content: space-between;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--gray-900);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .mobile-toggle.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://ik.imagekit.io/tycncf0zq0/EMS_scene.png?updatedAt=1762997809776');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            padding: 12rem 0 8rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            color: var(--gray-200);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-arrow {
+            width: 2px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            margin: 0.5rem auto 0;
+            position: relative;
+        }
+
+        .scroll-arrow:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -3px;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid rgba(255, 255, 255, 0.7);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+            transform: rotate(45deg);
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text .section-title {
+            text-align: left;
+        }
+
+        .about-features {
+            margin: 2rem 0;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-feature i {
+            color: var(--gray-800);
+        }
+
+        .about-cta {
+            margin-top: 1.5rem;
+        }
+
+        .about-media {
+            position: relative;
+        }
+
+        .about-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: grayscale(100%);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .about-card {
+            position: absolute;
+            bottom: -2rem;
+            right: -2rem;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 300px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .about-card h3 {
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card-stat {
+            text-align: center;
+        }
+
+        .card-stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .card-stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        /* Custom Systems Section */
+        .systems {
+            background-color: var(--gray-50);
+        }
+
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .system-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .system-icon {
+            font-size: 3rem;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+        }
+
+        .system-card h3 {
+            color: var(--gray-900);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .system-card p {
+            color: var(--gray-600);
+        }
+
+        .system-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--gray-900);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            color: var(--gray-900);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            text-align: left;
+            margin-top: 1.5rem;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .feature-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gray-900);
+            font-weight: bold;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Process Section */
+        .process {
+            background-color: var(--gray-50);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-content h3 {
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-duration {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .process-cta {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            margin-top: 3rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        /* Departments Section */
+        .departments {
+            background-color: var(--white);
+        }
+
+        .departments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .department-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .department-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .department-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: grayscale(100%);
+        }
+
+        .department-card:hover .department-image img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .department-content {
+            padding: 1.5rem;
+        }
+
+        .department-content h3 {
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .department-content p {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .department-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .department-role {
+            padding: 0.25rem 0.75rem;
+            background-color: var(--gray-100);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--gray-700);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background-color: var(--gray-50);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            aspect-ratio: 1/1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: grayscale(100%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: var(--white);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background-color: var(--white);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background-color: var(--white);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background-color: var(--gray-50);
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            background-color: var(--gray-50);
+        }
+
+        .faq-item.active .faq-question {
+            background-color: var(--gray-50);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
+            color: var(--white);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            color: var(--gray-200);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .cta-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--gray-900);
+            color: var(--white);
+            padding: 4rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+            filter: grayscale(100%) brightness(1000%);
+        }
+
+        .footer-description {
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--white);
+            color: var(--gray-900);
+            transform: translateY(-3px);
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+
+        .footer-badges {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .footer-badge {
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--gray-900);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--white);
+            color: var(--gray-900);
+            transform: translateY(-3px);
+        }
+
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .about-card {
+                position: static;
+                margin-top: 2rem;
+                max-width: 100%;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 2rem;
+                transition: var(--transition);
+                box-shadow: var(--shadow-lg);
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu ul {
+                flex-direction: column;
+                gap: 1.5rem;
+                width: 100%;
+            }
+
+            .nav-cta {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .hero {
+                padding: 10rem 0 6rem;
+                min-height: auto;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .cta h2 {
+                font-size: 2rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                align-self: center;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .features-grid,
+            .requirements-grid,
+            .departments-grid,
+            .systems-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://ik.imagekit.io/tycncf0zq0/Florida%20State%20Roleplay%20Whitelisted.png?updatedAt=1762921164381" alt="FSRPWL Logo">
+            </div>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#systems" class="nav-link">Our Systems</a></li>
+                    <li><a href="#departments" class="nav-link">Departments</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#apply" class="btn nav-cta">Apply Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Florida State Roleplay Whitelisted</h1>
+                <p class="hero-subtitle">A premier, whitelist-only roleplaying community within Emergency Response: Liberty County on Roblox. Featuring custom systems developed by owner Ducky.</p>
+                <div class="hero-btns">
+                    <a href="#apply" class="btn btn-large">Begin Your Application</a>
+                    <a href="#systems" class="btn btn-outline btn-large">Our Systems</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <span class="section-badge">About Us</span>
+                    <h2 class="section-title">Welcome to FSRPWL</h2>
+                    <p>FSRPWL is designed as an exclusive, immersive environment where quality roleplay takes precedence. Entry is a privilege granted only to those who successfully navigate our rigorous selection process, ensuring all members are committed to a high standard of roleplay.</p>
+                    <p>Our community operates within the Emergency Response: Liberty County game on Roblox, focusing on realistic emergency service roleplay scenarios in a structured, mature environment.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Whitelist-only community</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Professional staff team</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Custom systems developed by Ducky</span>
+                        </div>
+                    </div>
+                    <a href="#departments" class="btn about-cta">Explore Departments</a>
+                </div>
+                <div class="about-media">
+                    <div class="about-image">
+                        <img src="https://ik.imagekit.io/tycncf0zq0/EMS_scene.png?updatedAt=1762997809776" alt="Community Focus" loading="lazy">
+                    </div>
+                    <div class="about-card">
+                        <h3>Community Focus</h3>
+                        <p>We prioritize quality over quantity, ensuring every member contributes to our immersive roleplay experience.</p>
+                        <div class="card-stats">
+                            <div class="card-stat">
+                                <span class="card-stat-number">1000+</span>
+                                <span class="card-stat-label">Applications</span>
+                            </div>
+                            <div class="card-stat">
+                                <span class="card-stat-number">4.8/5</span>
+                                <span class="card-stat-label">Member Rating</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Systems Section -->
+    <section class="section systems" id="systems">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Technology</span>
+                <h2 class="section-title">Custom Systems by Ducky</h2>
+                <p class="section-subtitle">Experience unparalleled roleplay with our proprietary systems developed in-house by owner Ducky.</p>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card">
+                    <div class="system-badge">Custom</div>
+                    <div class="system-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Advanced Database System</h3>
+                    <p>Our custom database tracks player progression, incident reports, and department statistics in real-time.</p>
+                </div>
+                <div class="system-card">
+                    <div class="system-badge">Custom</div>
+                    <div class="system-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>911 CAD/MDT System</h3>
+                    <p>Fully functional Computer-Aided Dispatch and Mobile Data Terminal system for realistic emergency response.</p>
+                </div>
+                <div class="system-card">
+                    <div class="system-badge">Custom</div>
+                    <div class="system-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>Character Management</h3>
+                    <p>Comprehensive character creation and management system with detailed backstories and progression tracking.</p>
+                </div>
+                <div class="system-card">
+                    <div class="system-badge">Custom</div>
+                    <div class="system-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Performance Analytics</h3>
+                    <p>Advanced analytics dashboard for staff to monitor community health and player engagement metrics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Why Choose Us</span>
+                <h2 class="section-title">Premium Community Features</h2>
+                <p class="section-subtitle">Experience roleplay like never before with our exclusive features and dedicated community management.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Whitelist-Only Community</h3>
+                    <p>Our gated community ensures only dedicated, quality roleplayers join our ranks, maintaining high standards across all interactions.</p>
+                    <ul class="feature-list">
+                        <li>Rigorous application process</li>
+                        <li>Quality-controlled membership</li>
+                        <li>Mature community environment</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Premium Experience</h3>
+                    <p>Enjoy a mature, realistic roleplaying environment free from common Roblox disruptions, with dedicated staff and organized events.</p>
+                    <ul class="feature-list">
+                        <li>Professional roleplay standards</li>
+                        <li>Regular community events</li>
+                        <li>Dedicated support staff</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Structured Roleplay</h3>
+                    <p>Engage in organized emergency response scenarios with clear rules, dedicated departments, and professional roleplay standards.</p>
+                    <ul class="feature-list">
+                        <li>Department-specific training</li>
+                        <li>Clear progression system</li>
+                        <li>Regular scenario updates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section class="section departments" id="departments">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Departments</span>
+                <h2 class="section-title">Roleplay Specializations</h2>
+                <p class="section-subtitle">Choose from various emergency service departments, each with unique responsibilities and progression paths.</p>
+            </div>
+            
+            <div class="departments-grid">
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Law Enforcement">
+                    </div>
+                    <div class="department-content">
+                        <h3>Law Enforcement</h3>
+                        <p>Maintain public safety, enforce laws, and respond to criminal incidents as a member of our police force.</p>
+                        <div class="department-roles">
+                            <span class="department-role">Trooper</span>
+                            <span class="department-role">Sergeant</span>
+                            <span class="department-role">Lieutenant</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="EMS">
+                    </div>
+                    <div class="department-content">
+                        <h3>Emergency Medical Services</h3>
+                        <p>Provide medical assistance, respond to emergencies, and save lives as part of our EMS division.</p>
+                        <div class="department-roles">
+                            <span class="department-role">EMT</span>
+                            <span class="department-role">Paramedic</span>
+                            <span class="department-role">Medical Supervisor</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1542856391-010b89d4baf4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fire Department">
+                    </div>
+                    <div class="department-content">
+                        <h3>Fire Department</h3>
+                        <p>Respond to fires, conduct rescue operations, and provide emergency services as a firefighter.</p>
+                        <div class="department-roles">
+                            <span class="department-role">Firefighter</span>
+                            <span class="department-role">Engineer</span>
+                            <span class="department-role">Captain</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1551135042-1bd496762bfe?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dispatch">
+                    </div>
+                    <div class="department-content">
+                        <h3>Communications & Dispatch</h3>
+                        <p>Coordinate emergency responses, manage radio communications, and support field operations.</p>
+                        <div class="department-roles">
+                            <span class="department-role">Dispatcher</span>
+                            <span class="department-role">Communications Supervisor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Community Gallery</span>
+                <h2 class="section-title">Moments from FSRPWL</h2>
+                <p class="section-subtitle">Take a look at some highlights from our community events and roleplay scenarios.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Police vehicle">
+                    <div class="gallery-overlay">
+                        <p>Law Enforcement Patrol</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="EMS response">
+                    <div class="gallery-overlay">
+                        <p>Medical Emergency Response</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542856391-010b89d4baf4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fire department">
+                    <div class="gallery-overlay">
+                        <p>Fire Department Operations</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1599058917765-92d1b7675ba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Training session">
+                    <div class="gallery-overlay">
+                        <p>Department Training</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Traffic stop">
+                    <div class="gallery-overlay">
+                        <p>Traffic Enforcement</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Medical transport">
+                    <div class="gallery-overlay">
+                        <p>Patient Transport</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="section process" id="process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">How to Join</span>
+                <h2 class="section-title">Application Process</h2>
+                <p class="section-subtitle">Our selection process ensures that only committed roleplayers who align with our community values are granted access.</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Initial Application</h3>
+                        <p>Complete our detailed application form with information about your roleplay experience and expectations.</p>
+                        <div class="step-duration">
+                            <i class="far fa-clock"></i>
+                            <span>5-10 minutes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Background Check</h3>
+                        <p>Our staff reviews your Roblox profile and any previous roleplay community involvement.</p>
+                        <div class="step-duration">
+                            <i class="far fa-clock"></i>
+                            <span>1-3 days</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Interview Phase</h3>
+                        <p>Selected applicants participate in a voice or text interview to assess roleplay knowledge and maturity.</p>
+                        <div class="step-duration">
+                            <i class="far fa-clock"></i>
+                            <span>15-30 minutes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Final Decision</h3>
+                        <p>Our review team makes the final decision on your application based on all collected information.</p>
+                        <div class="step-duration">
+                            <i class="far fa-clock"></i>
+                            <span>24-48 hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-cta">
+                <p>Ready to start your journey? Begin your application today!</p>
+                <a href="#apply" class="btn btn-large">Start Application</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">FAQ</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Find answers to common questions about our community and application process.</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What makes FSRPWL different from other roleplay communities?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>FSRPWL is a whitelist-only community with a rigorous application process that ensures all members are committed to high-quality, realistic roleplay. We maintain strict standards for maturity and professionalism, creating an immersive environment free from common disruptions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does the application process typically take?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The complete application process usually takes between 3-7 days, depending on the volume of applications and the complexity of your background check. We strive to process applications as quickly as possible while maintaining our thorough review standards.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What happens if my application is denied?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If your application is denied, you will receive feedback explaining the reasons. You may reapply after 30 days, and we encourage you to address the feedback in your new application. Some applicants are successful on their second attempt after gaining more experience.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are there any costs associated with joining FSRPWL?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, there are no costs to join FSRPWL. We are a community-driven organization, and membership is completely free. We believe in maintaining an accessible community for dedicated roleplayers regardless of financial situation.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What kind of roleplay scenarios can I expect?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our community focuses on emergency response scenarios including law enforcement, medical emergencies, fire department operations, and civil incidents. We maintain realistic standards and regularly introduce new scenarios to keep the roleplay experience fresh and engaging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="apply">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Join Our Elite Community?</h2>
+                <p>If you meet our requirements and are committed to high-quality roleplay, begin your application process today. Join our dedicated roleplayers in our premium community.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-large">Apply Now</a>
+                    <a href="#requirements" class="btn btn-outline btn-large">Review Requirements</a>
+                </div>
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>No application fee</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Quick response time</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Helpful staff support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://ik.imagekit.io/tycncf0zq0/Florida%20State%20Roleplay%20Whitelisted.png?updatedAt=1762921164381" alt="FSRPWL Logo">
+                    </div>
+                    <p class="footer-description">Florida State Roleplay Whitelisted - A premium roleplaying community within Emergency Response: Liberty County on Roblox.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Discord" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" aria-label="Roblox Group" class="social-link">
+                            <i class="fas fa-gamepad"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" aria-label="YouTube" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#systems">Our Systems</a></li>
+                        <li><a href="#departments">Departments</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Community Guidelines</a></li>
+                        <li><a href="#">Roleplay Handbook</a></li>
+                        <li><a href="#">Department Information</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Support Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2023 FSRPWL. All rights reserved. This community is not affiliated with Roblox Corporation.</p>
+                </div>
+                <div class="footer-badges">
+                    <span class="footer-badge">Whitelist Only</span>
+                    <span class="footer-badge">Custom Systems</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // FSRPWL Website JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all components
+            initNavigation();
+            initSmoothScroll();
+            initAnimations();
+            initBackToTop();
+            initScrollEffects();
+            initFAQ();
+            initParticles();
+            
+            console.log('FSRPWL Website initialized successfully');
+        });
+
+        // Navigation functionality
+        function initNavigation() {
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const header = document.querySelector('header');
+
+            // Mobile menu toggle
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close mobile menu when clicking on a link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                // Update active navigation link
+                updateActiveNavLink();
+            });
+
+            // Update active navigation link based on scroll position
+            function updateActiveNavLink() {
+                const sections = document.querySelectorAll('section');
+                const scrollPos = window.scrollY + 100;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Animation on scroll
+        function initAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.feature-card, .step, .system-card, .about-card, .department-card, .gallery-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Back to top button
+        function initBackToTop() {
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Scroll effects and parallax
+        function initScrollEffects() {
+            // Add scroll-triggered animations
+            const animatedElements = document.querySelectorAll('.feature-card, .step, .system-card, .department-card, .gallery-item');
+            
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(el => {
+                scrollObserver.observe(el);
+            });
+
+            // Parallax effect for hero background
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero');
+                if (hero) {
+                    hero.style.backgroundPosition = `center ${scrolled * 0.5}px`;
+                }
+            });
+        }
+
+        // FAQ functionality
+        function initFAQ() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        }
+
+        // Particle background
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 20 + 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+    </script>
+</body>
+</html>
