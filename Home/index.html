@@ -1,1864 +1,880 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FSRPWL - Florida State Roleplay Whitelisted</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        /* CSS Variables for Black & White Theme */
         :root {
-            --black: #000000;
-            --white: #FFFFFF;
-            --gray-50: #FAFAFA;
-            --gray-100: #F5F5F5;
-            --gray-200: #EEEEEE;
-            --gray-300: #E0E0E0;
-            --gray-400: #BDBDBD;
-            --gray-500: #9E9E9E;
-            --gray-600: #757575;
-            --gray-700: #616161;
-            --gray-800: #424242;
-            --gray-900: #212121;
-            
-            --transition: all 0.3s ease;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15), 0 5px 10px rgba(0,0,0,0.05);
-            --radius: 6px;
-            --radius-lg: 10px;
-            
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --color-primary: #facc15; /* amber-400 */
         }
-
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
         body {
-            font-family: var(--font-primary);
-            line-height: 1.6;
-            color: var(--gray-900);
-            background-color: var(--white);
+            font-family: 'Inter', sans-serif;
+            background-color: #030712; /* gray-950 */
+            color: #d1d5db; /* gray-300 */
             overflow-x: hidden;
         }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            margin-bottom: 1rem;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
-
-        ul, ol {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
         .container {
-            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        }
+        .section-padding {
+            padding: 6rem 1rem;
+        }
+        .text-shadow {
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+        /* Focus state for accessibility */
+        :focus-visible {
+            outline: 2px solid #fbbf24; /* Tailwind 'amber-400' */
+            outline-offset: 2px;
         }
 
-        /* Button Styles */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.85rem 2rem;
-            background-color: var(--gray-900);
-            color: var(--white);
-            border: 2px solid var(--gray-900);
-            border-radius: var(--radius);
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-            font-size: 1rem;
-            position: relative;
-            overflow: hidden;
+        /* --- Flordiee AI Chat --- */
+        #chat-fab {
+            transition: all 0.3s ease;
         }
 
-        .btn:hover {
-            background-color: var(--white);
-            color: var(--gray-900);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+        #chat-window {
+            height: 70vh;
+            max-height: 700px;
+            /* Updated transition for a slight "overshoot" effect */
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: bottom right;
         }
 
-        .btn-outline {
-            background-color: transparent;
-            color: var(--gray-900);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--gray-900);
-            color: var(--white);
-        }
-
-        .btn-large {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 5rem 0;
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: var(--gray-200);
-            color: var(--gray-800);
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--gray-600);
-            line-height: 1.6;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: var(--white);
-            color: var(--gray-900);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-
-        header.scrolled {
-            padding: 0.5rem 0;
-            box-shadow: var(--shadow-md);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            transition: var(--transition);
-        }
-
-        .logo img {
-            height: 50px;
-            transition: var(--transition);
-            filter: grayscale(100%) contrast(200%);
-        }
-
-        /* Navigation */
-        .nav-menu ul {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: var(--gray-700);
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--gray-900);
-            transition: var(--transition);
-        }
-
-        .nav-link:hover:after,
-        .nav-link.active:after {
-            width: 100%;
-        }
-
-        .nav-cta {
-            margin-left: 1rem;
-        }
-
-        /* Mobile Toggle */
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            width: 30px;
-            height: 30px;
-            justify-content: space-between;
-        }
-
-        .hamburger-line {
-            width: 100%;
-            height: 3px;
-            background-color: var(--gray-900);
-            border-radius: 2px;
-            transition: var(--transition);
-        }
-
-        .mobile-toggle.active .hamburger-line:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        .mobile-toggle.active .hamburger-line:nth-child(2) {
+        #chat-window.hidden-chat {
             opacity: 0;
+            /* Updated transform */
+            transform: translateY(20px) scale(0.9);
+            pointer-events: none;
         }
 
-        .mobile-toggle.active .hamburger-line:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://ik.imagekit.io/tycncf0zq0/sell-this-roblox-erlc-livery-fhp-pack.png?updatedAt=1762997808373');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--white);
-            padding: 12rem 0 8rem;
-            position: relative;
-            overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-            color: var(--gray-200);
-        }
-
-        .hero-btns {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-arrow {
-            width: 2px;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.7);
-            margin: 0.5rem auto 0;
-            position: relative;
-        }
-
-        .scroll-arrow:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: -3px;
+        /* Custom scrollbar */
+        #chat-messages::-webkit-scrollbar {
             width: 8px;
-            height: 8px;
-            border-right: 2px solid rgba(255, 255, 255, 0.7);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.7);
-            transform: rotate(45deg);
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #4b5563; /* gray-600 */
+            border-radius: 10px;
+        }
+        #chat-messages::-webkit-scrollbar-track {
+            background: #71717a; /* gray-500 */
         }
 
-        /* About Section */
-        .about {
-            background-color: var(--white);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text .section-title {
-            text-align: left;
-        }
-
-        .about-features {
-            margin: 2rem 0;
-        }
-
-        .about-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .about-feature i {
-            color: var(--gray-800);
-        }
-
-        .about-cta {
-            margin-top: 1.5rem;
-        }
-
-        .about-media {
-            position: relative;
-        }
-
-        .about-image {
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .about-image img {
+        /* AI Message basic table styling */
+        .ai-message table {
             width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: var(--transition);
-            filter: grayscale(100%);
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-
-        .about-card {
-            position: absolute;
-            bottom: -2rem;
-            right: -2rem;
-            background: var(--white);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            max-width: 300px;
-            border: 1px solid var(--gray-200);
-        }
-
-        .about-card h3 {
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-        }
-
-        .card-stats {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .card-stat {
-            text-align: center;
-        }
-
-        .card-stat-number {
-            display: block;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
-        }
-
-        .card-stat-label {
+            border-collapse: collapse;
+            margin: 1rem 0;
             font-size: 0.875rem;
-            color: var(--gray-600);
+            border: 1px solid #4b5563; /* gray-600 */
         }
-
-        /* Features Section */
-        .features {
-            background-color: var(--gray-50);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem 2rem;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            text-align: center;
-            border: 1px solid var(--gray-200);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--gray-900);
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-card h3 {
-            color: var(--gray-900);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-list {
+        .ai-message th, .ai-message td {
+            border: 1px solid #4b5563; /* gray-600 */
+            padding: 8px 12px;
             text-align: left;
-            margin-top: 1.5rem;
         }
-
-        .feature-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--gray-200);
-            position: relative;
+        .ai-message th {
+            background-color: #374151; /* gray-700 */
+        }
+        .ai-message ul, .ai-message ol {
             padding-left: 1.5rem;
+            margin: 0.5rem 0;
+            list-style: revert; /* Re-enabling default list styles */
         }
-
-        .feature-list li:before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--gray-900);
-            font-weight: bold;
-        }
-
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-
-        /* Process Section */
-        .process {
-            background-color: var(--white);
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .step {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-        }
-
-        .step-number {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: var(--gray-900);
-            color: var(--white);
-            border-radius: 50%;
-            font-size: 1.5rem;
-            font-weight: 700;
-            flex-shrink: 0;
-            box-shadow: var(--shadow-md);
-        }
-
-        .step-content h3 {
-            color: var(--gray-900);
-            margin-bottom: 0.5rem;
-        }
-
-        .step-duration {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            color: var(--gray-600);
-            font-size: 0.875rem;
-        }
-
-        .process-cta {
-            text-align: center;
-            padding: 2rem;
-            background: var(--gray-50);
-            border-radius: var(--radius-lg);
-            margin-top: 3rem;
-            border: 1px solid var(--gray-200);
-        }
-
-        /* Requirements Section */
-        .requirements {
-            background-color: var(--gray-50);
-        }
-
-        .requirements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .requirement-card {
-            background: var(--white);
-            padding: 2.5rem 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--gray-200);
-        }
-
-        .requirement-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .requirement-icon {
-            font-size: 3rem;
-            color: var(--gray-900);
-            margin-bottom: 1.5rem;
-        }
-
-        .requirement-card h3 {
-            color: var(--gray-900);
-            margin-bottom: 1rem;
-        }
-
-        .requirement-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background-color: var(--gray-200);
-            color: var(--gray-800);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            text-transform: uppercase;
-        }
-
-        /* Departments Section */
-        .departments {
-            background-color: var(--white);
-        }
-
-        .departments-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .department-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border: 1px solid var(--gray-200);
-        }
-
-        .department-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .department-image {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .department-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-            filter: grayscale(100%);
-        }
-
-        .department-card:hover .department-image img {
-            transform: scale(1.1);
-            filter: grayscale(0%);
-        }
-
-        .department-content {
-            padding: 1.5rem;
-        }
-
-        .department-content h3 {
-            color: var(--gray-900);
-            margin-bottom: 0.5rem;
-        }
-
-        .department-content p {
-            color: var(--gray-600);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .department-roles {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .department-role {
-            padding: 0.25rem 0.75rem;
-            background-color: var(--gray-100);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            color: var(--gray-700);
-        }
-
-        /* Gallery Section */
-        .gallery {
-            background-color: var(--gray-50);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .gallery-item {
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            position: relative;
-            aspect-ratio: 1/1;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-            filter: grayscale(100%);
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-            filter: grayscale(0%);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+        .ai-message pre {
+            background-color: #1f2937; /* gray-800 */
             padding: 1rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.7));
-            color: var(--white);
-            opacity: 0;
-            transition: var(--transition);
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.25rem;
+        }
+        /* Style for inline code */
+        .ai-message code:not(pre > code) {
+            background-color: #3f3f46; /* gray-700 */
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.85em;
+        }
+        /* Headings */
+        .ai-message h2 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* semibold */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #4b5563; /* gray-600 */
+            padding-bottom: 0.25rem;
+        }
+        .ai-message h3 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* semibold */
+            margin-top: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        /* Links */
+        .ai-message a {
+            color: #facc15; /* amber-400 */
+            text-decoration: underline;
+        }
+        .ai-message a:hover {
+            color: #fde047; /* amber-300 */
         }
 
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
+        /* Chat Message Fade-in Animation */
+        @keyframes slideFadeIn { 
+            0% { opacity: 0; transform: translateY(15px); } 
+            100% { opacity: 1; transform: translateY(0); } 
+        }
+        .message-fade-in {
+            animation: slideFadeIn 0.4s ease-out forwards;
         }
 
-        /* FAQ Section */
-        .faq {
-            background-color: var(--white);
-        }
-
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            margin-bottom: 1rem;
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 1.5rem;
-            background-color: var(--white);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .faq-question:hover {
-            background-color: var(--gray-50);
-        }
-
-        .faq-question i {
-            transition: var(--transition);
-        }
-
-        .faq-answer {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: var(--transition);
-            background-color: var(--gray-50);
-        }
-
-        .faq-item.active .faq-question {
-            background-color: var(--gray-50);
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-        .faq-item.active .faq-answer {
-            padding: 1.5rem;
-            max-height: 500px;
-        }
-
-        /* CTA Section */
-        .cta {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
-            color: var(--white);
-            padding: 6rem 0;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            color: var(--gray-200);
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .cta-features {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--gray-900);
-            color: var(--white);
-            padding: 4rem 0 1.5rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-logo img {
-            height: 50px;
-            margin-bottom: 1rem;
-            filter: grayscale(100%) brightness(1000%);
-        }
-
-        .footer-description {
-            color: var(--gray-400);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            transition: var(--transition);
-        }
-
-        .social-link:hover {
-            background-color: var(--white);
-            color: var(--gray-900);
-            transform: translateY(-3px);
-        }
-
-        .footer-section h3 {
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: var(--gray-400);
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--white);
-            padding-left: 5px;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .copyright {
-            color: var(--gray-500);
-            font-size: 0.9rem;
-        }
-
-        .footer-badges {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .footer-badge {
-            padding: 0.25rem 0.75rem;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            color: var(--gray-400);
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background-color: var(--gray-900);
-            color: var(--white);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-            z-index: 99;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background-color: var(--white);
-            color: var(--gray-900);
-            transform: translateY(-3px);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0) translateX(-50%);
-            }
-            40% {
-                transform: translateY(-10px) translateX(-50%);
-            }
-            60% {
-                transform: translateY(-5px) translateX(-50%);
-            }
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .about-card {
-                position: static;
-                margin-top: 2rem;
-                max-width: 100%;
-            }
-            
-            .hero-title {
-                font-size: 2.8rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-toggle {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background-color: var(--white);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 2rem;
-                transition: var(--transition);
-                box-shadow: var(--shadow-lg);
-                z-index: 999;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-menu ul {
-                flex-direction: column;
-                gap: 1.5rem;
-                width: 100%;
-            }
-
-            .nav-cta {
-                margin-left: 0;
-                margin-top: 1rem;
-            }
-
-            .hero {
-                padding: 10rem 0 6rem;
-                min-height: auto;
-            }
-            
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .section {
-                padding: 4rem 0;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .cta h2 {
-                font-size: 2rem;
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .process-steps {
-                grid-template-columns: 1fr;
-            }
-            
-            .step {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .step-number {
-                align-self: center;
-            }
-            
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-        }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .hero-title {
-                font-size: 1.8rem;
-            }
-            
-            .features-grid,
-            .requirements-grid,
-            .departments-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-            }
-            
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-        }
     </style>
 </head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="https://ik.imagekit.io/tycncf0zq0/Florida%20State%20Roleplay%20Whitelisted.png?updatedAt=1762921164381" alt="FSRPWL Logo">
+<body class="antialiased">
+
+    <!-- Header / Hero Section -->
+    <header class="relative overflow-hidden bg-gray-900 border-b border-gray-800">
+        <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('https://placehold.co/1920x1080/0d131f/FFFFFF?text=FSRPWL+Background'); background-size: cover; background-position: center;"></div>
+        <div class="relative mx-auto container px-4 sm:px-6 lg:px-8 section-padding">
+            <div class="text-center">
+                <h1 class="text-5xl sm:text-7xl font-extrabold text-white tracking-tight leading-tight text-shadow">
+                    Florida State <span class="text-amber-400">Roleplay</span> Whitelisted
+                </h1>
+                <p class="mt-6 text-xl text-gray-400 max-w-3xl mx-auto">
+                    Experience the ultimate realistic roleplay community in Emergency Response: Liberty County. We uphold maturity, structure, and professional standards.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#departments" class="inline-flex items-center justify-center rounded-md border border-transparent bg-amber-400 px-8 py-3 text-lg font-medium text-gray-900 shadow-xl hover:bg-amber-300 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950">
+                        Join the Community
+                    </a>
+                    <a href="#rules" class="inline-flex items-center justify-center rounded-md border border-gray-700 bg-gray-800 px-8 py-3 text-lg font-medium text-white shadow-lg hover:bg-gray-700 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950">
+                        View Rules
+                    </a>
+                </div>
             </div>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav class="nav-menu" id="navMenu">
-                <ul>
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#departments" class="nav-link">Departments</a></li>
-                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                    <li><a href="#apply" class="btn nav-cta">Apply Now</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Florida State Roleplay Whitelisted</h1>
-                <p class="hero-subtitle">A premier, whitelist-only roleplaying community within Emergency Response: Liberty County on Roblox. Immerse yourself in a gated environment where quality, realism, and maturity are paramount.</p>
-                <div class="hero-btns">
-                    <a href="#apply" class="btn btn-large">Begin Your Application</a>
-                    <a href="#about" class="btn btn-outline btn-large">Learn More</a>
+    <main>
+        <!-- Section 2: Why Choose Us -->
+        <section class="section-padding bg-gray-900 border-b border-gray-800">
+            <div class="mx-auto container px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-base font-semibold tracking-wide text-amber-400 uppercase">Our Commitment</h2>
+                    <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                        A New Standard of Roleplay
+                    </p>
+                    <p class="mt-4 text-xl text-gray-400 lg:mx-auto">
+                        FSRPWL offers more than just game time; we offer a career-based, organized, and dedicated experience unlike any other ER:LC group.
+                    </p>
+                </div>
+
+                <div class="mt-10">
+                    <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
+                        <div class="relative">
+                            <dt>
+                                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-amber-500 text-white">
+                                    <i data-lucide="shield-check" class="h-6 w-6"></i>
+                                </div>
+                                <p class="ml-16 text-lg leading-6 font-medium text-white">Whitelisted Access</p>
+                            </dt>
+                            <dd class="mt-2 ml-16 text-base text-gray-400">
+                                Ensures every member is screened for maturity and dedication, guaranteeing high-quality roleplay interactions.
+                            </dd>
+                        </div>
+
+                        <div class="relative">
+                            <dt>
+                                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-amber-500 text-white">
+                                    <i data-lucide="book-open-text" class="h-6 w-6"></i>
+                                </div>
+                                <p class="ml-16 text-lg leading-6 font-medium text-white">Structured Training</p>
+                            </dt>
+                            <dd class="mt-2 ml-16 text-base text-gray-400">
+                                Professional, detailed training programs for every department to ensure realistic and consistent operations.
+                            </dd>
+                        </div>
+
+                        <div class="relative">
+                            <dt>
+                                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-amber-500 text-white">
+                                    <i data-lucide="users" class="h-6 w-6"></i>
+                                </div>
+                                <p class="ml-16 text-lg leading-6 font-medium text-white">Dedicated Community</p>
+                            </dt>
+                            <dd class="mt-2 ml-16 text-base text-gray-400">
+                                A supportive, active, and friendly group of mature roleplayers and leaders ready to welcome new members.
+                            </dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>Scroll Down</span>
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section class="section about" id="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <span class="section-badge">About Us</span>
-                    <h2 class="section-title">Welcome to FSRPWL</h2>
-                    <p>FSRPWL is designed as an exclusive, immersive environment where quality roleplay takes precedence. Entry is a privilege granted only to those who successfully navigate our rigorous selection process, ensuring all members are committed to a high standard of roleplay.</p>
-                    <p>Our community operates within the Emergency Response: Liberty County game on Roblox, focusing on realistic emergency service roleplay scenarios in a structured, mature environment.</p>
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Whitelist-only community</span>
-                        </div>
-                        <div class="about-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Professional staff team</span>
-                        </div>
-                        <div class="about-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Regular events and training</span>
-                        </div>
-                    </div>
-                    <a href="#departments" class="btn about-cta">Explore Departments</a>
+        <!-- Section 3: Departments -->
+        <section id="departments" class="section-padding bg-gray-950 border-b border-gray-800">
+            <div class="mx-auto container px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-base font-semibold tracking-wide text-amber-400 uppercase">Career Paths</h2>
+                    <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                        Our Core Departments
+                    </p>
+                    <p class="mt-4 text-lg text-gray-300">
+                        Our community is built on structured, realistic departments. Each offers a unique path with dedicated training and leadership.
+                    </p>
                 </div>
-                <div class="about-media">
-                    <div class="about-image">
-                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Emergency Response Scene" loading="lazy">
-                    </div>
-                    <div class="about-card">
-                        <h3>Community Focus</h3>
-                        <p>We prioritize quality over quantity, ensuring every member contributes to our immersive roleplay experience.</p>
-                        <div class="card-stats">
-                            <div class="card-stat">
-                                <span class="card-stat-number">1000+</span>
-                                <span class="card-stat-label">Applications</span>
+                
+                <!-- Department Cards -->
+                <div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+                    <!-- FHP Card -->
+                    <div class="rounded-xl bg-gray-900 p-6 shadow-xl border border-gray-800 transition duration-300 hover:scale-[1.02] hover:shadow-2xl">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-blue-600 text-white mb-4">
+                                <i data-lucide="car" class="h-8 w-8"></i>
                             </div>
-                            <div class="card-stat">
-                                <span class="card-stat-number">4.8/5</span>
-                                <span class="card-stat-label">Member Rating</span>
+                            <h3 class="text-xl font-semibold text-white">Florida Highway Patrol</h3>
+                            <p class="mt-2 text-gray-400 text-sm">
+                                High-speed pursuit operations and interstate traffic enforcement. The backbone of state-wide law enforcement.
+                            </p>
+                            <a href="#" class="mt-4 text-amber-400 hover:text-amber-300 text-sm font-medium transition duration-200">
+                                Learn More &rarr;
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Sheriff Card -->
+                    <div class="rounded-xl bg-gray-900 p-6 shadow-xl border border-gray-800 transition duration-300 hover:scale-[1.02] hover:shadow-2xl">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-red-600 text-white mb-4">
+                                <i data-lucide="building-2" class="h-8 w-8"></i>
                             </div>
+                            <h3 class="text-xl font-semibold text-white">Sheriff's Office</h3>
+                            <p class="mt-2 text-gray-400 text-sm">
+                                Primary jurisdiction across the county, handling patrols, investigations, and community policing.
+                            </p>
+                            <a href="#" class="mt-4 text-amber-400 hover:text-amber-300 text-sm font-medium transition duration-200">
+                                Learn More &rarr;
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Fire & Rescue Card -->
+                    <div class="rounded-xl bg-gray-900 p-6 shadow-xl border border-gray-800 transition duration-300 hover:scale-[1.02] hover:shadow-2xl">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-green-600 text-white mb-4">
+                                <i data-lucide="syringe" class="h-8 w-8"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-white">Fire & Rescue</h3>
+                            <p class="mt-2 text-gray-400 text-sm">
+                                Responding to medical emergencies, fire suppression, and complex rescue operations.
+                            </p>
+                            <a href="#" class="mt-4 text-amber-400 hover:text-amber-300 text-sm font-medium transition duration-200">
+                                Learn More &rarr;
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Comms Card -->
+                    <div class="rounded-xl bg-gray-900 p-6 shadow-xl border border-gray-800 transition duration-300 hover:scale-[1.02] hover:shadow-2xl">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-yellow-600 text-gray-900 mb-4">
+                                <i data-lucide="radio" class="h-8 w-8"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-white">Communications</h3>
+                            <p class="mt-2 text-gray-400 text-sm">
+                                The vital link between citizens and first responders, managing calls and coordinating units efficiently.
+                            </p>
+                            <a href="#" class="mt-4 text-amber-400 hover:text-amber-300 text-sm font-medium transition duration-200">
+                                Learn More &rarr;
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="section features" id="features">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Why Choose Us</span>
-                <h2 class="section-title">Premium Community Features</h2>
-                <p class="section-subtitle">Experience roleplay like never before with our exclusive features and dedicated community management.</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                <!-- --- ✨ New Gemini Feature: Scenario Generator --- -->
+                <div class="mt-24 max-w-4xl mx-auto">
+                    <div class="text-center">
+                        <h3 class="text-3xl font-bold tracking-tight text-white flex items-center justify-center">
+                            <i data-lucide="sparkles" class="h-6 w-6 text-amber-400 mr-3"></i>
+                            Test Your RP Skills
+                        </h3>
+                        <p class="mt-4 text-lg text-gray-300">
+                            Want to see if you're a good fit? Select a department and let our AI generate a realistic scenario for you to handle.
+                        </p>
                     </div>
-                    <h3>Whitelist-Only Community</h3>
-                    <p>Our gated community ensures only dedicated, quality roleplayers join our ranks, maintaining high standards across all interactions.</p>
-                    <ul class="feature-list">
-                        <li>Rigorous application process</li>
-                        <li>Quality-controlled membership</li>
-                        <li>Mature community environment</li>
+
+                    <div class="mt-10 flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+                        <select id="scenario-select" class="flex-1 bg-gray-800 border border-gray-700 rounded-md px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent">
+                            <option value="">-- Select a Department --</option>
+                            <option value="Florida Highway Patrol">Florida Highway Patrol</option>
+                            <option value="Sheriff's Office">Sheriff's Office</option>
+                            <option value="Fire & Rescue">Fire & Rescue</option>
+                            <option value="Communications">Communications</option>
+                        </select>
+                        <button id="scenario-button" class="rounded-md bg-amber-400 px-8 py-3 text-lg font-medium text-gray-900 shadow-lg hover:bg-amber-300 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">
+                            Generate Scenario
+                        </button>
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div id="scenario-loading" class="hidden mt-6 flex items-center justify-center space-x-2">
+                        <div class="h-2 w-2 bg-amber-400 rounded-full animate-bounce" style="animation-delay: -0.3s;"></div>
+                        <div class="h-2 w-2 bg-amber-400 rounded-full animate-bounce" style="animation-delay: -0.15s;"></div>
+                        <div class="h-2 w-2 bg-amber-400 rounded-full animate-bounce"></div>
+                        <span class="text-sm text-gray-400">Generating scenario...</span>
+                    </div>
+
+                    <!-- Result Box -->
+                    <div id="scenario-result" class="hidden mt-6 rounded-lg bg-gray-800 p-6 border border-gray-700 ai-message">
+                        <h4 class="text-lg font-semibold text-white mb-3">Generated Scenario:</h4>
+                        <p id="scenario-result-text" class="text-gray-300 leading-relaxed"></p>
+                    </div>
+                </div>
+                <!-- --- End New Gemini Feature --- -->
+
+            </div>
+        </section>
+
+        <!-- Section 4: Rules -->
+        <section id="rules" class="section-padding bg-gray-900">
+            <div class="mx-auto container px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-base font-semibold tracking-wide text-amber-400 uppercase">Integrity First</h2>
+                    <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                        Core Community Rules
+                    </p>
+                    <p class="mt-4 text-xl text-gray-400 lg:mx-auto">
+                        Maturity and realism are mandatory. We enforce a strict set of rules to maintain a professional environment.
+                    </p>
+                </div>
+
+                <div class="mt-10 max-w-4xl mx-auto">
+                    <ul role="list" class="space-y-4">
+                        <li class="p-4 bg-gray-800 rounded-lg shadow-md flex items-start space-x-3 border border-gray-700">
+                            <i data-lucide="user-x" class="h-6 w-6 text-red-500 flex-shrink-0"></i>
+                            <p class="text-base text-gray-300">
+                                <strong class="text-white">No Random Deathmatch (RDM) / Vehicle Deathmatch (VDM):</strong> Killing players or running them over without a valid, in-character roleplay reason will result in an immediate ban.
+                            </p>
+                        </li>
+                        <li class="p-4 bg-gray-800 rounded-lg shadow-md flex items-start space-x-3 border border-gray-700">
+                            <i data-lucide="gavel" class="h-6 w-6 text-amber-400 flex-shrink-0"></i>
+                            <p class="text-base text-gray-300">
+                                <strong class="text-white">Strict Chain of Command:</strong> All members must respect and follow the instructions of their commanding officers and department leadership.
+                            </p>
+                        </li>
+                        <li class="p-4 bg-gray-800 rounded-lg shadow-md flex items-start space-x-3 border border-gray-700">
+                            <i data-lucide="mic" class="h-6 w-6 text-green-500 flex-shrink-0"></i>
+                            <p class="text-base text-gray-300">
+                                <strong class="text-white">Realistic Radio Communication:</strong> Use proper 10-codes and clear, concise language over in-game and Discord communications.
+                            </p>
+                        </li>
+                        <li class="p-4 bg-gray-800 rounded-lg shadow-md flex items-start space-x-3 border border-gray-700">
+                            <i data-lucide="clock" class="h-6 w-6 text-blue-500 flex-shrink-0"></i>
+                            <p class="text-base text-gray-300">
+                                <strong class="text-white">Age/Maturity Requirement:</strong> Applicants must be 16+ years of age and demonstrate high levels of maturity during the application and interview process.
+                            </p>
+                        </li>
                     </ul>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>Premium Experience</h3>
-                    <p>Enjoy a mature, realistic roleplaying environment free from common Roblox disruptions, with dedicated staff and organized events.</p>
-                    <ul class="feature-list">
-                        <li>Professional roleplay standards</li>
-                        <li>Regular community events</li>
-                        <li>Dedicated support staff</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Structured Roleplay</h3>
-                    <p>Engage in organized emergency response scenarios with clear rules, dedicated departments, and professional roleplay standards.</p>
-                    <ul class="feature-list">
-                        <li>Department-specific training</li>
-                        <li>Clear progression system</li>
-                        <li>Regular scenario updates</li>
-                    </ul>
-                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Departments Section -->
-    <section class="section departments" id="departments">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Our Departments</span>
-                <h2 class="section-title">Roleplay Specializations</h2>
-                <p class="section-subtitle">Choose from various emergency service departments, each with unique responsibilities and progression paths.</p>
-            </div>
-            
-            <div class="departments-grid">
-                <div class="department-card">
-                    <div class="department-image">
-                        <img src="https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Law Enforcement">
-                    </div>
-                    <div class="department-content">
-                        <h3>Law Enforcement</h3>
-                        <p>Maintain public safety, enforce laws, and respond to criminal incidents as a member of our police force.</p>
-                        <div class="department-roles">
-                            <span class="department-role">Trooper</span>
-                            <span class="department-role">Sergeant</span>
-                            <span class="department-role">Lieutenant</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="department-card">
-                    <div class="department-image">
-                        <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="EMS">
-                    </div>
-                    <div class="department-content">
-                        <h3>Emergency Medical Services</h3>
-                        <p>Provide medical assistance, respond to emergencies, and save lives as part of our EMS division.</p>
-                        <div class="department-roles">
-                            <span class="department-role">EMT</span>
-                            <span class="department-role">Paramedic</span>
-                            <span class="department-role">Medical Supervisor</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="department-card">
-                    <div class="department-image">
-                        <img src="https://images.unsplash.com/photo-1542856391-010b89d4baf4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fire Department">
-                    </div>
-                    <div class="department-content">
-                        <h3>Fire Department</h3>
-                        <p>Respond to fires, conduct rescue operations, and provide emergency services as a firefighter.</p>
-                        <div class="department-roles">
-                            <span class="department-role">Firefighter</span>
-                            <span class="department-role">Engineer</span>
-                            <span class="department-role">Captain</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="department-card">
-                    <div class="department-image">
-                        <img src="https://images.unsplash.com/photo-1551135042-1bd496762bfe?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dispatch">
-                    </div>
-                    <div class="department-content">
-                        <h3>Communications & Dispatch</h3>
-                        <p>Coordinate emergency responses, manage radio communications, and support field operations.</p>
-                        <div class="department-roles">
-                            <span class="department-role">Dispatcher</span>
-                            <span class="department-role">Communications Supervisor</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="section gallery" id="gallery">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Community Gallery</span>
-                <h2 class="section-title">Moments from FSRPWL</h2>
-                <p class="section-subtitle">Take a look at some highlights from our community events and roleplay scenarios.</p>
-            </div>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Police vehicle">
-                    <div class="gallery-overlay">
-                        <p>Law Enforcement Patrol</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="EMS response">
-                    <div class="gallery-overlay">
-                        <p>Medical Emergency Response</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1542856391-010b89d4baf4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fire department">
-                    <div class="gallery-overlay">
-                        <p>Fire Department Operations</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1599058917765-92d1b7675ba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Training session">
-                    <div class="gallery-overlay">
-                        <p>Department Training</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Traffic stop">
-                    <div class="gallery-overlay">
-                        <p>Traffic Enforcement</p>
-                    </div>
-                </div>
-                
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Medical transport">
-                    <div class="gallery-overlay">
-                        <p>Patient Transport</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Application Process -->
-    <section class="section process" id="process">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">How to Join</span>
-                <h2 class="section-title">Application Process</h2>
-                <p class="section-subtitle">Our selection process ensures that only committed roleplayers who align with our community values are granted access.</p>
-            </div>
-            
-            <div class="process-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Initial Application</h3>
-                        <p>Complete our detailed application form with information about your roleplay experience and expectations.</p>
-                        <div class="step-duration">
-                            <i class="far fa-clock"></i>
-                            <span>5-10 minutes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Background Check</h3>
-                        <p>Our staff reviews your Roblox profile and any previous roleplay community involvement.</p>
-                        <div class="step-duration">
-                            <i class="far fa-clock"></i>
-                            <span>1-3 days</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Interview Phase</h3>
-                        <p>Selected applicants participate in a voice or text interview to assess roleplay knowledge and maturity.</p>
-                        <div class="step-duration">
-                            <i class="far fa-clock"></i>
-                            <span>15-30 minutes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Final Decision</h3>
-                        <p>Our review team makes the final decision on your application based on all collected information.</p>
-                        <div class="step-duration">
-                            <i class="far fa-clock"></i>
-                            <span>24-48 hours</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="process-cta">
-                <p>Ready to start your journey? Begin your application today!</p>
-                <a href="#apply" class="btn btn-large">Start Application</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Requirements Section -->
-    <section class="section requirements" id="requirements">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Membership Criteria</span>
-                <h2 class="section-title">Requirements</h2>
-                <p class="section-subtitle">To maintain our community standards, all applicants must meet the following requirements:</p>
-            </div>
-            
-            <div class="requirements-grid">
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-birthday-cake"></i>
-                    </div>
-                    <h3>Age Requirement</h3>
-                    <p>Applicants must be at least 16 years of age to ensure maturity in roleplay scenarios.</p>
-                    <span class="requirement-tag">Mandatory</span>
-                </div>
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <h3>Roleplay Experience</h3>
-                    <p>Previous experience in serious roleplay communities is highly preferred and reviewed during application.</p>
-                    <span class="requirement-tag">Preferred</span>
-                </div>
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Communication Skills</h3>
-                    <p>Ability to communicate clearly and respectfully with other community members in English.</p>
-                    <span class="requirement-tag">Mandatory</span>
-                </div>
-                <div class="requirement-card">
-                    <div class="requirement-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Rules Compliance</h3>
-                    <p>Willingness to adhere to and enforce community guidelines and roleplay standards at all times.</p>
-                    <span class="requirement-tag">Mandatory</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="section faq" id="faq">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">FAQ</span>
-                <h2 class="section-title">Frequently Asked Questions</h2>
-                <p class="section-subtitle">Find answers to common questions about our community and application process.</p>
-            </div>
-            
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What makes FSRPWL different from other roleplay communities?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>FSRPWL is a whitelist-only community with a rigorous application process that ensures all members are committed to high-quality, realistic roleplay. We maintain strict standards for maturity and professionalism, creating an immersive environment free from common disruptions.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How long does the application process typically take?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>The complete application process usually takes between 3-7 days, depending on the volume of applications and the complexity of your background check. We strive to process applications as quickly as possible while maintaining our thorough review standards.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What happens if my application is denied?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>If your application is denied, you will receive feedback explaining the reasons. You may reapply after 30 days, and we encourage you to address the feedback in your new application. Some applicants are successful on their second attempt after gaining more experience.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Are there any costs associated with joining FSRPWL?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>No, there are no costs to join FSRPWL. We are a community-driven organization, and membership is completely free. We believe in maintaining an accessible community for dedicated roleplayers regardless of financial situation.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What kind of roleplay scenarios can I expect?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our community focuses on emergency response scenarios including law enforcement, medical emergencies, fire department operations, and civil incidents. We maintain realistic standards and regularly introduce new scenarios to keep the roleplay experience fresh and engaging.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta" id="apply">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Join Our Elite Community?</h2>
-                <p>If you meet our requirements and are committed to high-quality roleplay, begin your application process today. Join our dedicated roleplayers in our premium community.</p>
-                <div class="cta-buttons">
-                    <a href="#" class="btn btn-large">Apply Now</a>
-                    <a href="#requirements" class="btn btn-outline btn-large">Review Requirements</a>
-                </div>
-                <div class="cta-features">
-                    <div class="cta-feature">
-                        <i class="fas fa-check"></i>
-                        <span>No application fee</span>
-                    </div>
-                    <div class="cta-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Quick response time</span>
-                    </div>
-                    <div class="cta-feature">
-                        <i class="fas fa-check"></i>
-                        <span>Helpful staff support</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="https://ik.imagekit.io/tycncf0zq0/Florida%20State%20Roleplay%20Whitelisted.png?updatedAt=1762921164381" alt="FSRPWL Logo">
-                    </div>
-                    <p class="footer-description">Florida State Roleplay Whitelisted - A premium roleplaying community within Emergency Response: Liberty County on Roblox.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Discord" class="social-link">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                        <a href="#" aria-label="Roblox Group" class="social-link">
-                            <i class="fas fa-gamepad"></i>
-                        </a>
-                        <a href="#" aria-label="Twitter" class="social-link">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" aria-label="YouTube" class="social-link">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#departments">Departments</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Community Guidelines</a></li>
-                        <li><a href="#">Roleplay Handbook</a></li>
-                        <li><a href="#">Department Information</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Support Center</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                        <li><a href="#">Disclaimer</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="copyright">
-                    <p>&copy; 2023 FSRPWL. All rights reserved. This community is not affiliated with Roblox Corporation.</p>
-                </div>
-                <div class="footer-badges">
-                    <span class="footer-badge">Whitelist Only</span>
-                    <span class="footer-badge">Quality Focused</span>
-                </div>
-            </div>
+    <footer class="bg-gray-950 border-t border-gray-800">
+        <div class="mx-auto container px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500">
+            <p>&copy; 2024 FSRPWL Community. All rights reserved. | Unofficial Roblox ER:LC Roleplay Group</p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">
-        <i class="fas fa-chevron-up"></i>
+    <!-- Flordiee AI Chatbot FAB -->
+    <button id="chat-fab" class="fixed bottom-6 right-6 p-4 rounded-full bg-amber-500 text-gray-900 shadow-2xl hover:bg-amber-400 transition duration-300 focus:outline-none focus-visible:ring-4 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-950 z-50">
+        <i data-lucide="message-square" class="h-6 w-6"></i>
     </button>
 
-    <script>
-        // FSRPWL Website JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize all components
-            initNavigation();
-            initSmoothScroll();
-            initAnimations();
-            initBackToTop();
-            initScrollEffects();
-            initFAQ();
-            
-            console.log('FSRPWL Website initialized successfully');
-        });
+    <!-- Chat Window -->
+    <div id="chat-window" class="hidden-chat fixed bottom-20 right-6 w-full max-w-sm bg-gray-900 rounded-xl shadow-2xl flex flex-col border border-gray-700 z-50">
+        <!-- Chat Header -->
+        <div class="p-4 flex justify-between items-center border-b border-gray-800 bg-gray-800 rounded-t-xl">
+            <div class="flex items-center space-x-2">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+                <span class="text-lg font-semibold text-white">Flordiee AI</span>
+            </div>
+            <button id="close-btn" class="p-1 rounded-full text-gray-400 hover:text-white hover:bg-gray-700 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400">
+                <i data-lucide="x" class="h-5 w-5"></i>
+            </button>
+        </div>
+        
+        <!-- Chat Messages -->
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
+            <!-- Messages go here -->
+        </div>
 
-        // Navigation functionality
-        function initNavigation() {
-            const mobileToggle = document.getElementById('mobileToggle');
-            const navMenu = document.getElementById('navMenu');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const header = document.querySelector('header');
+        <!-- Loading Indicator -->
+        <div id="chat-loading" class="hidden p-4 border-t border-gray-700">
+            <div class="flex items-center space-x-2">
+                <div class="h-2 w-2 bg-amber-400 rounded-full animate-bounce" style="animation-delay: -0.3s;"></div>
+                <div class="h-2 w-2 bg-amber-400 rounded-full animate-bounce" style="animation-delay: -0.15s;"></div>
+                <div class="h-2 w-2 bg-amber-400 rounded-full animate-bounce"></div>
+                <span class="text-sm text-gray-400">Flordiee is searching...</span>
+            </div>
+        </div>
 
-            // Mobile menu toggle
-            mobileToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                navMenu.classList.toggle('active');
-                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
-            });
+        <!-- Input Form -->
+        <form id="chat-form" class="p-4 border-t border-gray-700">
+            <div class="flex space-x-3">
+                <input type="text" id="chat-input" placeholder="Ask Flordiee a question..." class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent">
+                <button type="submit" id="send-btn" class="p-3 rounded-lg bg-amber-500 text-gray-900 hover:bg-amber-400 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900">
+                    <i data-lucide="send" class="h-5 w-5"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 
-            // Close mobile menu when clicking on a link
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // --- Chat UI Elements ---
+            const chatFab = document.getElementById('chat-fab');
+            const chatWindow = document.getElementById('chat-window');
+            const closeBtn = document.getElementById('close-btn');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatLoading = document.getElementById('chat-loading');
 
-            // Header scroll effect
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+            // --- New Scenario Generator Elements ---
+            const scenarioSelect = document.getElementById('scenario-select');
+            const scenarioButton = document.getElementById('scenario-button');
+            const scenarioLoading = document.getElementById('scenario-loading');
+            const scenarioResult = document.getElementById('scenario-result');
+            const scenarioResultText = document.getElementById('scenario-result-text');
+
+
+            // --- Chat State ---
+            let isChatOpen = false;
+            let messages = [
+                {
+                    role: 'ai',
+                    text: "Hello! I'm Flordiee AI, your assistant for the FSRPWL community. How can I help you today?",
+                    sources: [] // Add sources array
                 }
-                
-                // Update active navigation link
-                updateActiveNavLink();
-            });
+            ];
 
-            // Update active navigation link based on scroll position
-            function updateActiveNavLink() {
-                const sections = document.querySelectorAll('section');
-                const scrollPos = window.scrollY + 100;
+            // --- Gemini API Configuration ---
+            const apiKey = ""; // API key is handled by the environment
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const chatSystemPrompt = "You are Flordiee AI, a helpful and professional assistant for the FSRPWL (Florida State Roleplay Whitelisted) community. You are friendly and knowledgeable. You MUST use your Google Search tool to find information about FSRPWL, Roblox, ER:LC, or any current events. You MUST format your answers with Markdown (headings, lists, **bold**, *italic*, tables, `code`, and links).";
 
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.offsetHeight;
-                    const sectionId = section.getAttribute('id');
-
-                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${sectionId}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
+            // --- Functions ---
+            
+            /**
+             * Toggles the chat window open/closed
+             */
+            function toggleChat() {
+                isChatOpen = !isChatOpen;
+                if (isChatOpen) {
+                    chatWindow.classList.remove('hidden-chat');
+                    chatFab.classList.add('opacity-0', 'scale-0');
+                    // Scroll to bottom when opening
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                } else {
+                    chatWindow.classList.add('hidden-chat');
+                    chatFab.classList.remove('opacity-0', 'scale-0');
+                }
             }
-        }
-
-        // Smooth scrolling for anchor links
-        function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const headerHeight = document.querySelector('header').offsetHeight;
-                        const targetPosition = targetElement.offsetTop - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-
-        // Animation on scroll
-        function initAnimations() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
             
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe elements for animation
-            document.querySelectorAll('.feature-card, .step, .requirement-card, .about-card, .department-card, .gallery-item').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-        }
-
-        // Back to top button
-        function initBackToTop() {
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 500) {
-                    backToTopBtn.classList.add('visible');
-                } else {
-                    backToTopBtn.classList.remove('visible');
+            /**
+             * NEW Robust Markdown to HTML converter
+             * Supports: headings, tables, lists, code blocks, links, bold, italic, inline code
+             */
+            function parseMarkdown(text) {
+                if (typeof text !== 'string' || !text) {
+                    return ''; // Return empty string if text is not a valid string
                 }
-            });
-            
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
 
-        // Scroll effects and parallax
-        function initScrollEffects() {
-            // Add scroll-triggered animations
-            const animatedElements = document.querySelectorAll('.feature-card, .step, .requirement-card, .department-card, .gallery-item');
-            
-            const scrollObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            animatedElements.forEach(el => {
-                scrollObserver.observe(el);
-            });
-        }
+                let html = text;
 
-        // FAQ functionality
-        function initFAQ() {
-            const faqItems = document.querySelectorAll('.faq-item');
-            
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                
-                question.addEventListener('click', () => {
-                    // Close all other items
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
+                // 1. Code Blocks (```...```)
+                html = html.replace(/```([\s\S]*?)```/g, (match, p1) => {
+                    const codeContent = (p1 || '').trim();
+                    const escapedCode = codeContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    return `<pre><code>${escapedCode}</code></pre>`;
+                });
+
+                // 2. Headings (#, ##, ###)
+                html = html.replace(/^## (.*$)/gim, '<h3>$1</h3>');
+                html = html.replace(/^# (.*$)/gim, '<h2>$1</h2>');
+
+                // 3. Tables (Block)
+                html = html.replace(/^((?:\|.*\|\s*\n)+)(?!\|)/gm, (match) => {
+                    const lines = (match || '').trim().split('\n');
+                    if (lines.length < 2) return match; // Not a table
+
+                    const tableLines = lines.filter(line => line.startsWith('|'));
+                    if (tableLines.length < 2) return match; // Not a table
                     
-                    // Toggle current item
-                    item.classList.toggle('active');
+                    // Check for separator
+                    if (!tableLines[1].match(/\|( *[-:]+ *\|)+/)) return match; 
+
+                    let table = '<table>';
+                    
+                    // Header
+                    table += '<thead><tr>';
+                    (tableLines[0] || '').trim().split('|').filter(Boolean).forEach(th => {
+                        table += `<th>${(th || '').trim()}</th>`;
+                    });
+                    table += '</tr></thead>';
+                    
+                    // Body
+                    table += '<tbody>';
+                    tableLines.slice(2).forEach(line => {
+                        table += '<tr>';
+                        (line || '').trim().split('|').filter(Boolean).forEach(td => {
+                            table += `<td>${(td || '').trim()}</td>`;
+                        });
+                        table += '</tr>';
+                    });
+                    table += '</tbody></table>';
+                    return table;
                 });
-            });
-        }
+
+                // 4. Unordered Lists (Block)
+                html = html.replace(/^((?:\s*-\s+.*\n?)+)/gm, (match) => {
+                    const items = (match || '').trim().split('\n');
+                    let list = '<ul>';
+                    items.forEach(item => {
+                        list += `<li>${(item || '').replace(/^\s*-\s+/, '').trim()}</li>`;
+                    });
+                    list += '</ul>';
+                    return list;
+                });
+
+                // 5. Ordered Lists (Block)
+                html = html.replace(/^((?:\s*\d+\.\s+.*\n?)+)/gm, (match) => {
+                    const items = (match || '').trim().split('\n');
+                    let list = '<ol>';
+                    items.forEach(item => {
+                        list += `<li>${(item || '').replace(/^\s*\d+\.\s+/, '').trim()}</li>`;
+                    });
+                    list += '</ol>';
+                    return list;
+                });
+
+                // 6. Links ([text](url))
+                html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+                // 7. Bold (**)
+                html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                // 8. Italic (*)
+                html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+                // 9. Inline Code (`)
+                html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+                // 10. Newlines
+                // Avoid replacing newlines inside <pre> or list items just created
+                // We'll rely on CSS 'white-space: pre-wrap' for the message blocks,
+                // but replace double newlines with paragraphs
+                html = html.split(/\n\s*\n/).map(p => p.trim() ? `<p>${p}</p>` : '').join('')
+                    .replace(/<p><table>/g, '<table>') // Fix paragraph around table
+                    .replace(/<\/table><\/p>/g, '</table>')
+                    .replace(/<p><ul>/g, '<ul>') // Fix paragraph around lists
+                    .replace(/<\/ul><\/p>/g, '</ul>')
+                    .replace(/<p><ol>/g, '<ol>')
+                    .replace(/<\/ol><\/p>/g, '</ol>')
+                    .replace(/<p><pre>/g, '<pre>') // Fix paragraph around code
+                    .replace(/<\/pre><\/p>/g, '</pre>')
+                    .replace(/<p><h2>/g, '<h2>') // Fix paragraph around headings
+                    .replace(/<\/h2><\/p>/g, '</h2>')
+                    .replace(/<p><h3>/g, '<h3>')
+                    .replace(/<\/h3><\/p>/g, '</h3>')
+                    .replace(/\n/g, '<br>'); // Convert remaining newlines
+                
+                return html.replace(/<p><br><\/p>/g, ''); // Clean up empty paragraphs
+            }
+
+
+            /**
+             * Renders the current 'messages' array to the chat window
+             */
+            function renderMessages() {
+                chatMessages.innerHTML = ''; // Clear existing messages
+                messages.forEach(message => {
+                    const messageEl = document.createElement('div');
+                    messageEl.classList.add('flex', 'flex-col', 'max-w-[85%]', 'rounded-lg', 'px-4', 'py-2', 'message-fade-in');
+
+                    if (message.role === 'user') {
+                        messageEl.classList.add('bg-amber-400', 'text-gray-900', 'self-end', 'rounded-br-none');
+                        // Use textContent for user messages to prevent XSS
+                        messageEl.textContent = message.text;
+                    } else {
+                        messageEl.classList.add('bg-gray-800', 'text-white', 'self-start', 'rounded-bl-none', 'ai-message');
+                        
+                        // Render main message content
+                        const contentEl = document.createElement('div');
+                        contentEl.innerHTML = parseMarkdown(message.text);
+                        messageEl.appendChild(contentEl);
+
+                        // Render sources if they exist
+                        if (message.sources && message.sources.length > 0) {
+                            const sourcesEl = document.createElement('div');
+                            sourcesEl.classList.add('mt-3', 'pt-3', 'border-t', 'border-gray-700');
+                            
+                            const sourcesTitle = document.createElement('h4');
+                            sourcesTitle.classList.add('text-xs', 'font-semibold', 'text-gray-400', 'mb-1', 'uppercase');
+                            sourcesTitle.textContent = 'Sources:';
+                            sourcesEl.appendChild(sourcesTitle);
+                            
+                            const sourcesList = document.createElement('ul');
+                            sourcesList.classList.add('space-y-1');
+                            
+                            message.sources.forEach((source, index) => {
+                                const sourceItem = document.createElement('li');
+                                sourceItem.classList.add('text-xs', 'truncate');
+                                
+                                const sourceLink = document.createElement('a');
+                                sourceLink.href = source.uri;
+                                sourceLink.target = '_blank';
+                                sourceLink.rel = 'noopener noreferrer';
+                                sourceLink.classList.add('text-amber-400', 'hover:text-amber-300', 'hover:underline');
+                                sourceLink.innerHTML = `<i data-lucide="link-2" class="h-3 w-3 inline-block mr-1"></i> ${source.title || source.uri}`;
+                                
+                                sourceItem.appendChild(sourceLink);
+                                sourcesList.appendChild(sourceItem);
+                            });
+                            
+                            sourcesEl.appendChild(sourcesList);
+                            messageEl.appendChild(sourcesEl);
+                            // Re-run lucide icons for the new source icons
+                            lucide.createIcons();
+                        }
+                    }
+                    chatMessages.appendChild(messageEl);
+                });
+                                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+ 
+            /**
+              * Shows or hides the chat loading indicator
+              * @param {boolean} isLoading
+              */
+            function setChatLoading(isLoading) {
+                if (isLoading) {
+                    chatLoading.classList.remove('hidden');
+                } else {
+                    chatLoading.classList.add('hidden');
+                }
+            }
+
+            /**
+             * Shows or hides the scenario loading indicator
+             * @param {boolean} isLoading
+             */
+            function setScenarioLoading(isLoading) {
+                if (isLoading) {
+                    scenarioLoading.classList.remove('hidden');
+                    scenarioResult.classList.add('hidden'); // Hide old result
+                } else {
+                    scenarioLoading.classList.add('hidden');
+                }
+            }
+            
+            /**
+             * Gemini API call function for CHAT (with grounding)
+             * @param {string} userQuery
+             * @param {string} systemPrompt
+             * @param {number} retryDelay - Initial retry delay in ms
+             * @param {number} maxRetries - Max number of retries
+             * @returns {Promise<{text: string|null, sources: Array}>} - The AI's response
+             */
+            async function callGeminiChatAPI(userQuery, systemPrompt, retryDelay = 1000, maxRetries = 3) {
+                const payload = {
+                    contents: [
+                        { parts: [{ text: userQuery }] }
+                    ],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    // Enable Google Search grounding
+                    tools: [{ "google_search": {} }], 
+                };
+                
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 429 && maxRetries > 0) { // Throttling
+                            await new Promise(resolve => setTimeout(resolve, retryDelay));
+                            return callGeminiChatAPI(userQuery, systemPrompt, retryDelay * 2, maxRetries - 1);
+                        }
+                        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+                    const aiText = candidate?.content?.parts?.[0]?.text;
+                    let sources = [];
+
+                    // Extract grounding sources
+                    const groundingMetadata = candidate?.groundingMetadata;
+                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attr => ({
+                                uri: attr.web?.uri,
+                                title: attr.web?.title,
+                            }))
+                            .filter(source => source.uri); // Only keep valid sources
+                    }
+
+                    if (aiText) {
+                        return { text: aiText, sources: sources };
+                    } else {
+                        throw new Error("Invalid response structure from API.");
+                    }
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    return { text: null, sources: [] }; // Return null on failure
+                }
+            }
+
+            /**
+             * Gemini API call function for CREATIVE (no grounding)
+             * @param {string} userQuery
+             * @param {string} systemPrompt
+             * @param {number} retryDelay - Initial retry delay in ms
+             * @param {number} maxRetries - Max number of retries
+             * @returns {Promise<{text: string|null, sources: Array}>} - The AI's response
+             */
+            async function callGeminiCreativeAPI(userQuery, systemPrompt, retryDelay = 1000, maxRetries = 3) {
+                const payload = {
+                    contents: [
+                        { parts: [{ text: userQuery }] }
+                    ],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    // NO tools property, as we don't want grounding
+                };
+                
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 429 && maxRetries > 0) { // Throttling
+                            await new Promise(resolve => setTimeout(resolve, retryDelay));
+                            return callGeminiCreativeAPI(userQuery, systemPrompt, retryDelay * 2, maxRetries - 1);
+                        }
+                        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (aiText) {
+                        return { text: aiText, sources: [] }; // Return with empty sources
+                    } else {
+                        throw new Error("Invalid response structure from API.");
+                    }
+                } catch (error) {
+                    console.error("Gemini API call failed:", error);
+                    return { text: null, sources: [] }; // Return null on failure
+                }
+            }
+            
+            /**
+             * Handles the CHAT message send
+             * @param {Event} e
+             */
+            async function handleMessageSend(e) {
+                e.preventDefault();
+                const userQuery = chatInput.value.trim();
+                if (!userQuery) return;
+
+                // Add user message to state and render
+                messages.push({ role: 'user', text: userQuery, sources: [] });
+                renderMessages();
+                chatInput.value = '';
+                
+                // Show loading and call API
+                setChatLoading(true);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll down to show loading
+                
+                // Use the new CHAT-specific API call
+                const { text, sources } = await callGeminiChatAPI(userQuery, chatSystemPrompt);
+                
+                if (text) {
+                    messages.push({ role: 'ai', text: text, sources: sources });
+                } else {
+                    messages.push({ role: 'ai', text: "Sorry, I seem to be having trouble connecting. Please try again in a moment.", sources: [] });
+                }
+                
+                setChatLoading(false);
+                renderMessages();
+            }
+
+            /**
+             * Handles the SCENARIO GENERATOR button click
+             */
+            async function handleScenarioGenerate() {
+                const selectedDepartment = scenarioSelect.value;
+                if (!selectedDepartment) {
+                    scenarioResultText.innerHTML = parseMarkdown("*Please select a department first.*");
+                    scenarioResult.classList.remove('hidden');
+                    return;
+                }
+
+                setScenarioLoading(true);
+
+                const scenarioSystemPrompt = "You are a creative director for a realistic, mature, whitelist-only roleplay community (FSRPWL). Your job is to generate engaging, serious, and realistic scenario prompts for players. The prompts must be concise (about 100 words), require thoughtful decision-making, and be suitable for a mature audience. Format as a single paragraph with Markdown if needed.";
+                const scenarioQuery = `Generate a short, realistic roleplay scenario for the "${selectedDepartment}" department in Emergency Response: Liberty County.`;
+                
+                // Use the new CREATIVE-specific API call
+                const { text } = await callGeminiCreativeAPI(scenarioQuery, scenarioSystemPrompt);
+                
+                setScenarioLoading(false);
+                
+                if (text) {
+                    scenarioResultText.innerHTML = parseMarkdown(text);
+                } else {
+                    scenarioResultText.innerHTML = parseMarkdown("Sorry, I had an error generating a scenario. Please try again in a moment.");
+                }
+                scenarioResult.classList.remove('hidden');
+            }
+
+
+            // --- Event Listeners ---
+            chatFab.addEventListener('click', toggleChat);
+            closeBtn.addEventListener('click', toggleChat);
+            chatForm.addEventListener('submit', handleMessageSend);
+            scenarioButton.addEventListener('click', handleScenarioGenerate); // New listener
+            
+            // --- Initial Render ---
+            renderMessages();
+
+            // Initial icon rendering
+            lucide.createIcons();
+        });
     </script>
 </body>
 </html>
