@@ -272,7 +272,7 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://ik.imagekit.io/tycncf0zq0/EMS_scene.png?updatedAt=1762997809776');
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('https://ik.imagekit.io/tycncf0zq0/sell-this-roblox-erlc-livery-fhp-pack.png?updatedAt=1762997808373');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -312,33 +312,6 @@
             gap: 1rem;
             flex-wrap: wrap;
             margin-bottom: 3rem;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gray-300);
         }
 
         .scroll-indicator {
@@ -639,6 +612,133 @@
             text-transform: uppercase;
         }
 
+        /* Departments Section */
+        .departments {
+            background-color: var(--white);
+        }
+
+        .departments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .department-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .department-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .department-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: grayscale(100%);
+        }
+
+        .department-card:hover .department-image img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .department-content {
+            padding: 1.5rem;
+        }
+
+        .department-content h3 {
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .department-content p {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .department-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .department-role {
+            padding: 0.25rem 0.75rem;
+            background-color: var(--gray-100);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--gray-700);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background-color: var(--gray-50);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            aspect-ratio: 1/1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            filter: grayscale(100%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: var(--white);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
         /* FAQ Section */
         .faq {
             background-color: var(--white);
@@ -694,69 +794,6 @@
         .faq-item.active .faq-answer {
             padding: 1.5rem;
             max-height: 500px;
-        }
-
-        /* Testimonials Section */
-        .testimonials {
-            background-color: var(--gray-50);
-        }
-
-        .testimonials-slider {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .testimonials-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .testimonial {
-            min-width: 100%;
-            padding: 2rem;
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-            border: 1px solid var(--gray-200);
-        }
-
-        .testimonial-content {
-            font-style: italic;
-            margin-bottom: 1.5rem;
-            color: var(--gray-700);
-        }
-
-        .testimonial-author {
-            font-weight: 600;
-            color: var(--gray-900);
-        }
-
-        .testimonial-role {
-            color: var(--gray-600);
-            font-size: 0.9rem;
-        }
-
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--gray-400);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .slider-dot.active {
-            background-color: var(--gray-900);
         }
 
         /* CTA Section */
@@ -1075,6 +1112,10 @@
             .step-number {
                 align-self: center;
             }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
         }
 
         @media (max-width: 576px) {
@@ -1086,21 +1127,18 @@
                 font-size: 1.8rem;
             }
             
-            .hero-stats {
-                gap: 1.5rem;
-            }
-            
-            .stat-number {
-                font-size: 2rem;
-            }
-            
             .features-grid,
-            .requirements-grid {
+            .requirements-grid,
+            .departments-grid {
                 grid-template-columns: 1fr;
             }
             
             .cta-buttons {
                 flex-direction: column;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
         }
     </style>
@@ -1122,8 +1160,8 @@
                     <li><a href="#home" class="nav-link active">Home</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
                     <li><a href="#features" class="nav-link">Features</a></li>
-                    <li><a href="#process" class="nav-link">Application</a></li>
-                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#departments" class="nav-link">Departments</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
                     <li><a href="#apply" class="btn nav-cta">Apply Now</a></li>
                 </ul>
             </nav>
@@ -1139,20 +1177,6 @@
                 <div class="hero-btns">
                     <a href="#apply" class="btn btn-large">Begin Your Application</a>
                     <a href="#about" class="btn btn-outline btn-large">Learn More</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number" data-count="500">0</span>
-                        <span class="stat-label">Active Members</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="95">0</span>
-                        <span class="stat-label">Approval Rate</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-count="24">0</span>
-                        <span class="stat-label">Staff Members</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1185,7 +1209,7 @@
                             <span>Regular events and training</span>
                         </div>
                     </div>
-                    <a href="#process" class="btn about-cta">View Application Process</a>
+                    <a href="#departments" class="btn about-cta">Explore Departments</a>
                 </div>
                 <div class="about-media">
                     <div class="about-image">
@@ -1254,6 +1278,133 @@
                         <li>Clear progression system</li>
                         <li>Regular scenario updates</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section class="section departments" id="departments">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Departments</span>
+                <h2 class="section-title">Roleplay Specializations</h2>
+                <p class="section-subtitle">Choose from various emergency service departments, each with unique responsibilities and progression paths.</p>
+            </div>
+            
+            <div class="departments-grid">
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Law Enforcement">
+                    </div>
+                    <div class="department-content">
+                        <h3>Law Enforcement</h3>
+                        <p>Maintain public safety, enforce laws, and respond to criminal incidents as a member of our police force.</p>
+                        <div class="department-roles">
+                            <span class="department-role">Trooper</span>
+                            <span class="department-role">Sergeant</span>
+                            <span class="department-role">Lieutenant</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="EMS">
+                    </div>
+                    <div class="department-content">
+                        <h3>Emergency Medical Services</h3>
+                        <p>Provide medical assistance, respond to emergencies, and save lives as part of our EMS division.</p>
+                        <div class="department-roles">
+                            <span class="department-role">EMT</span>
+                            <span class="department-role">Paramedic</span>
+                            <span class="department-role">Medical Supervisor</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1542856391-010b89d4baf4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fire Department">
+                    </div>
+                    <div class="department-content">
+                        <h3>Fire Department</h3>
+                        <p>Respond to fires, conduct rescue operations, and provide emergency services as a firefighter.</p>
+                        <div class="department-roles">
+                            <span class="department-role">Firefighter</span>
+                            <span class="department-role">Engineer</span>
+                            <span class="department-role">Captain</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="department-card">
+                    <div class="department-image">
+                        <img src="https://images.unsplash.com/photo-1551135042-1bd496762bfe?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dispatch">
+                    </div>
+                    <div class="department-content">
+                        <h3>Communications & Dispatch</h3>
+                        <p>Coordinate emergency responses, manage radio communications, and support field operations.</p>
+                        <div class="department-roles">
+                            <span class="department-role">Dispatcher</span>
+                            <span class="department-role">Communications Supervisor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Community Gallery</span>
+                <h2 class="section-title">Moments from FSRPWL</h2>
+                <p class="section-subtitle">Take a look at some highlights from our community events and roleplay scenarios.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542744095-291d1f67b221?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Police vehicle">
+                    <div class="gallery-overlay">
+                        <p>Law Enforcement Patrol</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="EMS response">
+                    <div class="gallery-overlay">
+                        <p>Medical Emergency Response</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1542856391-010b89d4baf4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fire department">
+                    <div class="gallery-overlay">
+                        <p>Fire Department Operations</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1599058917765-92d1b7675ba3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Training session">
+                    <div class="gallery-overlay">
+                        <p>Department Training</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1588614959060-4d144f28b207?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Traffic stop">
+                    <div class="gallery-overlay">
+                        <p>Traffic Enforcement</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Medical transport">
+                    <div class="gallery-overlay">
+                        <p>Patient Transport</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1431,57 +1582,12 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="section testimonials">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Testimonials</span>
-                <h2 class="section-title">What Our Members Say</h2>
-                <p class="section-subtitle">Hear from our community members about their experiences in FSRPWL.</p>
-            </div>
-            
-            <div class="testimonials-slider">
-                <div class="testimonials-track" id="testimonialsTrack">
-                    <div class="testimonial">
-                        <div class="testimonial-content">
-                            "FSRPWL has completely transformed my roleplay experience. The quality of interactions and the dedication of staff is unmatched. It's worth the application process!"
-                        </div>
-                        <div class="testimonial-author">Alex M.</div>
-                        <div class="testimonial-role">Senior Deputy, 8 months in community</div>
-                    </div>
-                    
-                    <div class="testimonial">
-                        <div class="testimonial-content">
-                            "I've been in several roleplay communities, but FSRPWL stands out for its maturity and organization. The whitelist system ensures everyone is committed to quality roleplay."
-                        </div>
-                        <div class="testimonial-author">Jamie R.</div>
-                        <div class="testimonial-role">EMS Supervisor, 1 year in community</div>
-                    </div>
-                    
-                    <div class="testimonial">
-                        <div class="testimonial-content">
-                            "The application process was thorough but fair. Once accepted, I found a welcoming community with regular events and excellent staff support. Highly recommended!"
-                        </div>
-                        <div class="testimonial-author">Taylor K.</div>
-                        <div class="testimonial-role">Firefighter, 6 months in community</div>
-                    </div>
-                </div>
-                
-                <div class="slider-nav">
-                    <div class="slider-dot active" data-index="0"></div>
-                    <div class="slider-dot" data-index="1"></div>
-                    <div class="slider-dot" data-index="2"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
     <section class="cta" id="apply">
         <div class="container">
             <div class="cta-content">
                 <h2>Ready to Join Our Elite Community?</h2>
-                <p>If you meet our requirements and are committed to high-quality roleplay, begin your application process today. Join over 500 dedicated roleplayers in our premium community.</p>
+                <p>If you meet our requirements and are committed to high-quality roleplay, begin your application process today. Join our dedicated roleplayers in our premium community.</p>
                 <div class="cta-buttons">
                     <a href="#" class="btn btn-large">Apply Now</a>
                     <a href="#requirements" class="btn btn-outline btn-large">Review Requirements</a>
@@ -1534,8 +1640,8 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#features">Features</a></li>
-                        <li><a href="#process">Application Process</a></li>
-                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#departments">Departments</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -1583,10 +1689,8 @@
             initSmoothScroll();
             initAnimations();
             initBackToTop();
-            initCounters();
             initScrollEffects();
             initFAQ();
-            initTestimonials();
             
             console.log('FSRPWL Website initialized successfully');
         });
@@ -1688,7 +1792,7 @@
             }, observerOptions);
             
             // Observe elements for animation
-            document.querySelectorAll('.feature-card, .step, .requirement-card, .about-card').forEach(el => {
+            document.querySelectorAll('.feature-card, .step, .requirement-card, .about-card, .department-card, .gallery-item').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(30px)';
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -1716,43 +1820,10 @@
             });
         }
 
-        // Counter animation for statistics
-        function initCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target;
-                        const target = parseInt(counter.getAttribute('data-count'));
-                        const duration = 2000; // 2 seconds
-                        const step = target / (duration / 16); // 60fps
-                        let current = 0;
-                        
-                        const timer = setInterval(() => {
-                            current += step;
-                            if (current >= target) {
-                                counter.textContent = target;
-                                clearInterval(timer);
-                            } else {
-                                counter.textContent = Math.floor(current);
-                            }
-                        }, 16);
-                        
-                        observer.unobserve(counter);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            counters.forEach(counter => {
-                observer.observe(counter);
-            });
-        }
-
         // Scroll effects and parallax
         function initScrollEffects() {
             // Add scroll-triggered animations
-            const animatedElements = document.querySelectorAll('.feature-card, .step, .requirement-card');
+            const animatedElements = document.querySelectorAll('.feature-card, .step, .requirement-card, .department-card, .gallery-item');
             
             const scrollObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1787,38 +1858,6 @@
                     item.classList.toggle('active');
                 });
             });
-        }
-
-        // Testimonials slider
-        function initTestimonials() {
-            const track = document.getElementById('testimonialsTrack');
-            const dots = document.querySelectorAll('.slider-dot');
-            let currentIndex = 0;
-            
-            // Set up dot click events
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const index = parseInt(dot.getAttribute('data-index'));
-                    goToSlide(index);
-                });
-            });
-            
-            function goToSlide(index) {
-                currentIndex = index;
-                track.style.transform = `translateX(-${currentIndex * 100}%)`;
-                
-                // Update active dot
-                dots.forEach(dot => {
-                    dot.classList.remove('active');
-                });
-                dots[currentIndex].classList.add('active');
-            }
-            
-            // Auto-advance slides every 5 seconds
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % dots.length;
-                goToSlide(currentIndex);
-            }, 5000);
         }
     </script>
 </body>
